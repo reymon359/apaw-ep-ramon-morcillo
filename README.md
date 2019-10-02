@@ -5,6 +5,7 @@
 ### Estado del código
 [![Build Status](https://travis-ci.org/reymon359/apaw-ep-ramon-morcillo.svg?branch=develop)](https://travis-ci.org/reymon359/apaw-ep-ramon-morcillo)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=es.upm.miw%3Aapaw-ep-ramon-morcillo&metric=alert_status)](https://sonarcloud.io/dashboard?id=es.upm.miw%3Aapaw-ep-ramon-morcillo)
+[![BCH compliance](https://bettercodehub.com/edge/badge/reymon359/apaw-ep-ramon-morcillo?branch=develop)](https://bettercodehub.com/)
 ### Tecnologías necesarias
 * Java
 * Maven
