@@ -18,6 +18,7 @@ public class Director {
     public Director(String name, Integer age, Boolean alive) {
         this.name = name;
         this.age = age;
+        this.alive = alive;
     }
 
     public String getId() {
