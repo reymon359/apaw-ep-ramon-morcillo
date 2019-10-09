@@ -56,24 +56,4 @@ public class Film {
         this.genre = genre;
     }
 
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public Director getDirector() {
-        return director;
-    }
-
-    public Score getScore() {
-        return score;
-    }
-
-    public void setScore(Score score) {
-        this.score = score;
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
 }
