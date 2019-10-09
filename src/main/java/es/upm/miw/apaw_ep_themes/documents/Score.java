@@ -25,7 +25,7 @@ public class Score {
     }
 
     public void setVotes(Integer votes) {
-        this.value = votes;
+        this.votes = votes;
     }
 
     @Override
