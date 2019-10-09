@@ -11,6 +11,9 @@ import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 public class FilmBusinessController {
 
@@ -31,6 +34,17 @@ public class FilmBusinessController {
                 new Score(filmCreationDto.getValue(), filmCreationDto.getVotes()));
         this.filmDao.save(film);
         return new FilmBasicDto(film);
+    }
+
+    public List<FilmBasicDto> findByGenre(String genre) {
+        System.out.println(this.filmDao.findAll().stream()
+                .filter(film -> film.getGenre() == genre)
+                .map(FilmBasicDto::new)
+                .collect(Collectors.toList()));
+        return this.filmDao.findAll().stream()
+                .filter(film -> film.getGenre() == genre)
+                .map(FilmBasicDto::new)
+                .collect(Collectors.toList());
     }
 
 }
