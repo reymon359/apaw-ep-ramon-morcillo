@@ -10,6 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @ApiTestConfig
 class FilmsResourceIT {
 
@@ -18,8 +23,8 @@ class FilmsResourceIT {
 
     private String filmId;
 
-    @Test
-    void testCreate() {
+
+    String createFilm(String name) {
         DirectorDto directorDto =
                 new DirectorDto("name", 25, false);
         String directorId = this.webTestClient
@@ -31,15 +36,20 @@ class FilmsResourceIT {
                 .returnResult().getResponseBody().getId();
         FilmCreationDto filmCreationDto =
                 new FilmCreationDto("name", "genre", directorId, 5, 34);
-        this.filmId = this.webTestClient
+         String filmId = this.webTestClient
                 .post().uri(FilmResource.FILMS)
                 .body(BodyInserters.fromObject(filmCreationDto))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(FilmBasicDto.class)
                 .returnResult().getResponseBody().getId();
+        return filmId;
     }
 
+    @Test
+    void testCreate() {
+        this.createFilm("film-1");
+    }
     @Test
     void testCreateFilmException() {
         FilmCreationDto filmCreationDto =
@@ -62,5 +72,20 @@ class FilmsResourceIT {
                 .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
     }
 
+    @Test
+    void testSearch() {
+    this.createFilm("film-3");
+
+        List<FilmBasicDto> films = this.webTestClient
+                .get().uri(uriBuilder ->
+                        uriBuilder.path(FilmResource.FILMS + FilmResource.SEARCH)
+                                .queryParam("q", "genre:comedy")
+                                .build())
+                .exchange()
+                .expectStatus().isOk()
+                .expectBodyList(FilmBasicDto.class)
+                .returnResult().getResponseBody();
+        assertTrue(films.isEmpty());
+    }
 
 }
