@@ -24,7 +24,7 @@ class FilmsResourceIT {
     private String filmId;
 
 
-    String createFilm(String name) {
+    String createFilm(String name, String genre) {
         DirectorDto directorDto =
                 new DirectorDto("name", 25, false);
         String directorId = this.webTestClient
@@ -35,8 +35,8 @@ class FilmsResourceIT {
                 .expectBody(DirectorDto.class)
                 .returnResult().getResponseBody().getId();
         FilmCreationDto filmCreationDto =
-                new FilmCreationDto("name", "genre", directorId, 5, 34);
-         String filmId = this.webTestClient
+                new FilmCreationDto(name, genre, directorId, 5, 34);
+        String filmId = this.webTestClient
                 .post().uri(FilmResource.FILMS)
                 .body(BodyInserters.fromObject(filmCreationDto))
                 .exchange()
@@ -48,8 +48,9 @@ class FilmsResourceIT {
 
     @Test
     void testCreate() {
-        this.createFilm("film-1");
+        this.createFilm("film-1", "genre-1");
     }
+
     @Test
     void testCreateFilmException() {
         FilmCreationDto filmCreationDto =
@@ -64,7 +65,7 @@ class FilmsResourceIT {
     @Test
     void testCreateDirectorIdException() {
         FilmCreationDto filmCreationDto =
-                new FilmCreationDto("name2", "genre2","no",5,22);
+                new FilmCreationDto("name2", "genre2", "no", 5, 22);
         this.webTestClient
                 .post().uri(FilmResource.FILMS)
                 .body(BodyInserters.fromObject(filmCreationDto))
@@ -74,8 +75,7 @@ class FilmsResourceIT {
 
     @Test
     void testSearch() {
-    this.createFilm("film-3");
-
+        this.createFilm("film-3", "comedy");
         List<FilmBasicDto> films = this.webTestClient
                 .get().uri(uriBuilder ->
                         uriBuilder.path(FilmResource.FILMS + FilmResource.SEARCH)
@@ -85,7 +85,7 @@ class FilmsResourceIT {
                 .expectStatus().isOk()
                 .expectBodyList(FilmBasicDto.class)
                 .returnResult().getResponseBody();
-        assertTrue(films.isEmpty());
+        assertFalse(films.isEmpty());
     }
 
 }
