@@ -5,6 +5,7 @@ import es.upm.miw.apaw_ep_themes.documents.Score;
 import es.upm.miw.apaw_ep_themes.dtos.FilmBasicDto;
 import es.upm.miw.apaw_ep_themes.dtos.FilmCreationDto;
 import es.upm.miw.apaw_ep_themes.dtos.DirectorDto;
+import es.upm.miw.apaw_ep_themes.dtos.ScoreDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -93,16 +94,15 @@ class FilmsResourceIT {
     void testReadFilmScore() {
         String filmId = createFilm("film-4", "genre-4");
 
-        Score score = this.webTestClient
+        ScoreDto scoreDto = this.webTestClient
                 .get().uri(FilmResource.FILMS + FilmResource.ID_ID + FilmResource.SCORE, filmId)
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody(Score.class)
+                .expectBody(ScoreDto.class)
                 .returnResult().getResponseBody();
 
-        assert score != null;
-        assertEquals(Integer.valueOf(5), score.getValue());
-        assertEquals(Integer.valueOf(34), score.getVotes());
+        assertEquals(Integer.valueOf(5), scoreDto.getValue());
+        assertEquals(Integer.valueOf(34), scoreDto.getVotes());
     }
 
     @Test
