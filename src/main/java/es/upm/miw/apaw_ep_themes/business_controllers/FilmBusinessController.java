@@ -38,11 +38,11 @@ public class FilmBusinessController {
 
     public List<FilmBasicDto> findByGenre(String genre) {
         System.out.println(this.filmDao.findAll().stream()
-                .filter(film -> film.getGenre() == genre)
+                .filter(film -> film.getGenre().equals(genre))
                 .map(FilmBasicDto::new)
                 .collect(Collectors.toList()));
         return this.filmDao.findAll().stream()
-                .filter(film -> film.getGenre() == genre)
+                .filter(film -> film.getGenre().equals(genre))
                 .map(FilmBasicDto::new)
                 .collect(Collectors.toList());
     }

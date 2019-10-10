@@ -53,7 +53,7 @@ public class FilmBasicDto {
 
     @Override
     public String toString() {
-        return "UserBasicDto{" +
+        return "FilmBasicDto{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", genre='" + genre + '\'' +
