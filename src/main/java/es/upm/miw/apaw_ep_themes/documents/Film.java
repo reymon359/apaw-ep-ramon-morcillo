@@ -56,4 +56,8 @@ public class Film {
         this.genre = genre;
     }
 
+    public Score getScore(){
+        return this.score;
+    }
+
 }

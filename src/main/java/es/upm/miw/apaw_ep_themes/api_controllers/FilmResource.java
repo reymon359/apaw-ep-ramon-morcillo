@@ -1,6 +1,7 @@
 package es.upm.miw.apaw_ep_themes.api_controllers;
 
 import es.upm.miw.apaw_ep_themes.business_controllers.FilmBusinessController;
+import es.upm.miw.apaw_ep_themes.documents.Score;
 import es.upm.miw.apaw_ep_themes.dtos.FilmBasicDto;
 import es.upm.miw.apaw_ep_themes.dtos.FilmCreationDto;
 import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
@@ -15,6 +16,8 @@ public class FilmResource {
 
     public static final String FILMS = "/films";
     static final String SEARCH = "/search";
+    static final String ID_ID = "/{id}";
+    static final String SCORE = "/score";
 
     private FilmBusinessController filmBusinessController;
 
@@ -35,5 +38,10 @@ public class FilmResource {
             throw new BadRequestException("query param q is incorrect, missing 'genre:'");
         }
         return this.filmBusinessController.findByGenre(q.split(":")[1]);
+    }
+
+    @GetMapping(value = ID_ID + SCORE)
+    public Score readScore(@PathVariable String id) {
+        return this.filmBusinessController.readScore(id);
     }
 }

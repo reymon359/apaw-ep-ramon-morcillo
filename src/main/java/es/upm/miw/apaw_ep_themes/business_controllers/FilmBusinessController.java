@@ -47,4 +47,9 @@ public class FilmBusinessController {
                 .collect(Collectors.toList());
     }
 
+    public Score readScore(String id) {
+        Score score = this.filmDao.findById(id).orElseThrow(() -> new NotFoundException("Film id: " + id)).getScore();
+        return score;
+    }
+
 }
