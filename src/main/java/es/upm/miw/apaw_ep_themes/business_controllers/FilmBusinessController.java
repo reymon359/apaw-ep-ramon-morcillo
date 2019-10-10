@@ -7,6 +7,7 @@ import es.upm.miw.apaw_ep_themes.documents.Director;
 import es.upm.miw.apaw_ep_themes.documents.Score;
 import es.upm.miw.apaw_ep_themes.dtos.FilmBasicDto;
 import es.upm.miw.apaw_ep_themes.dtos.FilmCreationDto;
+import es.upm.miw.apaw_ep_themes.dtos.ScoreDto;
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,9 +48,8 @@ public class FilmBusinessController {
                 .collect(Collectors.toList());
     }
 
-    public Score readScore(String id) {
-        Score score = this.filmDao.findById(id).orElseThrow(() -> new NotFoundException("Film id: " + id)).getScore();
-        return score;
+    public ScoreDto readScore(String id) {
+        return new ScoreDto(this.filmDao.findById(id).orElseThrow(() -> new NotFoundException("Film id: " + id)).getScore());
     }
 
 }
