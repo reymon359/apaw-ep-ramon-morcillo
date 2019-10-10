@@ -4,6 +4,7 @@ import es.upm.miw.apaw_ep_themes.business_controllers.FilmBusinessController;
 import es.upm.miw.apaw_ep_themes.documents.Score;
 import es.upm.miw.apaw_ep_themes.dtos.FilmBasicDto;
 import es.upm.miw.apaw_ep_themes.dtos.FilmCreationDto;
+import es.upm.miw.apaw_ep_themes.dtos.ReviewDto;
 import es.upm.miw.apaw_ep_themes.dtos.ScoreDto;
 import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class FilmResource {
     static final String SEARCH = "/search";
     static final String ID_ID = "/{id}";
     static final String SCORE = "/score";
+    static final String REVIEWS = "/reviews";
 
     private FilmBusinessController filmBusinessController;
 
@@ -44,5 +46,10 @@ public class FilmResource {
     @GetMapping(value = ID_ID + SCORE)
     public ScoreDto readScore(@PathVariable String id) {
         return this.filmBusinessController.readScore(id);
+    }
+
+    @GetMapping(value = ID_ID + REVIEWS)
+    public List<ReviewDto> readReviews(@PathVariable String id) {
+        return this.filmBusinessController.readReviews(id);
     }
 }

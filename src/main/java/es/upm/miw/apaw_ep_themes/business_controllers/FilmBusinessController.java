@@ -4,9 +4,11 @@ import es.upm.miw.apaw_ep_themes.daos.FilmDao;
 import es.upm.miw.apaw_ep_themes.daos.DirectorDao;
 import es.upm.miw.apaw_ep_themes.documents.Film;
 import es.upm.miw.apaw_ep_themes.documents.Director;
+import es.upm.miw.apaw_ep_themes.documents.Review;
 import es.upm.miw.apaw_ep_themes.documents.Score;
 import es.upm.miw.apaw_ep_themes.dtos.FilmBasicDto;
 import es.upm.miw.apaw_ep_themes.dtos.FilmCreationDto;
+import es.upm.miw.apaw_ep_themes.dtos.ReviewDto;
 import es.upm.miw.apaw_ep_themes.dtos.ScoreDto;
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +40,6 @@ public class FilmBusinessController {
     }
 
     public List<FilmBasicDto> findByGenre(String genre) {
-        System.out.println(this.filmDao.findAll().stream()
-                .filter(film -> film.getGenre().equals(genre))
-                .map(FilmBasicDto::new)
-                .collect(Collectors.toList()));
         return this.filmDao.findAll().stream()
                 .filter(film -> film.getGenre().equals(genre))
                 .map(FilmBasicDto::new)
@@ -50,6 +48,11 @@ public class FilmBusinessController {
 
     public ScoreDto readScore(String id) {
         return new ScoreDto(this.filmDao.findById(id).orElseThrow(() -> new NotFoundException("Film id: " + id)).getScore());
+    }
+
+    public List<ReviewDto> readReviews(String id) {
+        List<Review> reviews = this.filmDao.findById(id).orElseThrow(() -> new NotFoundException("Film id: " + id)).getReviews();
+        return reviews.stream().map(ReviewDto::new).collect(Collectors.toList());
     }
 
 }

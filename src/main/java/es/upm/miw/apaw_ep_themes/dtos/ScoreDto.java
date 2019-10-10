@@ -1,6 +1,9 @@
 package es.upm.miw.apaw_ep_themes.dtos;
 
+import es.upm.miw.apaw_ep_themes.documents.Review;
 import es.upm.miw.apaw_ep_themes.documents.Score;
+
+import java.util.List;
 
 public class ScoreDto {
 
@@ -25,4 +28,11 @@ public class ScoreDto {
         return votes;
     }
 
+    @Override
+    public String toString() {
+        return "ScoreDto{" +
+                "value='" + value + '\'' +
+                ", votes=" + votes + '\'' +
+                '}';
+    }
 }
