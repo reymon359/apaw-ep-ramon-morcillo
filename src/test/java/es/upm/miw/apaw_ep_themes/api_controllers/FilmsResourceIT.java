@@ -1,6 +1,7 @@
 package es.upm.miw.apaw_ep_themes.api_controllers;
 
 import es.upm.miw.apaw_ep_themes.ApiTestConfig;
+import es.upm.miw.apaw_ep_themes.documents.Score;
 import es.upm.miw.apaw_ep_themes.dtos.FilmBasicDto;
 import es.upm.miw.apaw_ep_themes.dtos.FilmCreationDto;
 import es.upm.miw.apaw_ep_themes.dtos.DirectorDto;
@@ -12,8 +13,8 @@ import org.springframework.web.reactive.function.BodyInserters;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ApiTestConfig
 class FilmsResourceIT {
@@ -88,4 +89,42 @@ class FilmsResourceIT {
         assertFalse(films.isEmpty());
     }
 
+    @Test
+    void testReadFilmScore() {
+        DirectorDto directorDto =
+                new DirectorDto("name", 25, false);
+        String directorId = this.webTestClient
+                .post().uri(DirectorResource.DIRECTORS)
+                .body(BodyInserters.fromObject(directorDto))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(DirectorDto.class)
+                .returnResult().getResponseBody().getId();
+        FilmCreationDto filmCreationDto =
+                new FilmCreationDto("-4", "genre-4", directorId, 8, 103);
+        String filmId = this.webTestClient
+                .post().uri(FilmResource.FILMS)
+                .body(BodyInserters.fromObject(filmCreationDto))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(FilmBasicDto.class)
+                .returnResult().getResponseBody().getId();
+        Score score = this.webTestClient
+                .get().uri(FilmResource.FILMS + FilmResource.ID_ID + FilmResource.SCORE, filmId)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(Score.class)
+                .returnResult().getResponseBody();
+
+        assertEquals(Integer.valueOf(8), score.getValue());
+        assertEquals(Integer.valueOf(103), score.getVotes());
+    }
+
+    @Test
+    void testReadFilmScoreException() {
+        this.webTestClient
+                .get().uri(FilmResource.FILMS + FilmResource.ID_ID + FilmResource.SCORE, "no")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
+    }
 }
