@@ -106,9 +106,17 @@ class FilmsResourceIT {
     }
 
     @Test
-    void testReadFilmScoreException() {
+    void testReadFilmScoreNotFoundException() {
         this.webTestClient
                 .get().uri(FilmResource.FILMS + FilmResource.ID_ID + FilmResource.SCORE, "no")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void testReadFilmReviewsNotFoundException() {
+        this.webTestClient
+                .get().uri(FilmResource.FILMS + FilmResource.ID_ID + FilmResource.REVIEWS, "no")
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
     }

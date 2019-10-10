@@ -56,8 +56,16 @@ public class Film {
         this.genre = genre;
     }
 
-    public Score getScore(){
+    public Score getScore() {
         return this.score;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
 }
