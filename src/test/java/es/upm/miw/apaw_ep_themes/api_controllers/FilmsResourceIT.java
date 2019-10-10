@@ -91,24 +91,8 @@ class FilmsResourceIT {
 
     @Test
     void testReadFilmScore() {
-        DirectorDto directorDto =
-                new DirectorDto("name", 25, false);
-        String directorId = this.webTestClient
-                .post().uri(DirectorResource.DIRECTORS)
-                .body(BodyInserters.fromObject(directorDto))
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody(DirectorDto.class)
-                .returnResult().getResponseBody().getId();
-        FilmCreationDto filmCreationDto =
-                new FilmCreationDto("-4", "genre-4", directorId, 8, 103);
-        String filmId = this.webTestClient
-                .post().uri(FilmResource.FILMS)
-                .body(BodyInserters.fromObject(filmCreationDto))
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody(FilmBasicDto.class)
-                .returnResult().getResponseBody().getId();
+        String filmId = createFilm("film-4", "genre-4");
+
         Score score = this.webTestClient
                 .get().uri(FilmResource.FILMS + FilmResource.ID_ID + FilmResource.SCORE, filmId)
                 .exchange()
@@ -116,8 +100,9 @@ class FilmsResourceIT {
                 .expectBody(Score.class)
                 .returnResult().getResponseBody();
 
-        assertEquals(Integer.valueOf(8), score.getValue());
-        assertEquals(Integer.valueOf(103), score.getVotes());
+        assert score != null;
+        assertEquals(Integer.valueOf(5), score.getValue());
+        assertEquals(Integer.valueOf(34), score.getVotes());
     }
 
     @Test
