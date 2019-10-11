@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestConfig
 class DirectorBusinessControllerIT {
@@ -41,5 +41,19 @@ class DirectorBusinessControllerIT {
         assertThrows(NotFoundException.class, () -> directorBusinessController.update("no", directorDto));
     }
 
+    @Test
+    void testUpdateDirector() {
+        Director director2 = new Director("name2", 22, true);
+        this.directorDao.save(director2);
+
+        DirectorDto directorDto = new DirectorDto(director);
+        DirectorDto directorDto2 = new DirectorDto(director2);
+        directorDto = this.directorBusinessController.update(directorDto.getId(), directorDto2);
+
+        assertEquals("name2", directorDto.getName());
+        assertEquals(Integer.valueOf(22), directorDto.getAge());
+        assertTrue(directorDto.getAlive());
+
+    }
 
 }
