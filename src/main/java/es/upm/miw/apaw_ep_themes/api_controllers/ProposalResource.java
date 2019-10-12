@@ -1,6 +1,7 @@
 package es.upm.miw.apaw_ep_themes.api_controllers;
 
 import es.upm.miw.apaw_ep_themes.business_controllers.ProposalBusinessController;
+import es.upm.miw.apaw_ep_themes.dtos.ProposalPatchDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,5 +24,9 @@ public class ProposalResource {
         this.proposalBusinessController.delete(id);
     }
 
-
+    @PatchMapping(value = ID_ID)
+    public void patch(@PathVariable String id, @RequestBody ProposalPatchDto proposalPatchDto) {
+        proposalPatchDto.validate();
+        this.proposalBusinessController.patch(id, proposalPatchDto);
+    }
 }
