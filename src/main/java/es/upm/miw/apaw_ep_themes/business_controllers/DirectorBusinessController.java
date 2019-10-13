@@ -2,6 +2,7 @@ package es.upm.miw.apaw_ep_themes.business_controllers;
 
 import es.upm.miw.apaw_ep_themes.daos.DirectorDao;
 import es.upm.miw.apaw_ep_themes.documents.Director;
+import es.upm.miw.apaw_ep_themes.documents.DirectorBuilder;
 import es.upm.miw.apaw_ep_themes.dtos.DirectorDto;
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class DirectorBusinessController {
     }
 
     public DirectorDto create(DirectorDto directorDto) {
-        Director director = new Director(directorDto.getName(), directorDto.getAge(), directorDto.getAlive());
+        Director director = new DirectorBuilder(directorDto.getName(), directorDto.getAge(), directorDto.getAlive()).build();
         this.directorDao.save(director);
         return new DirectorDto(director);
     }
