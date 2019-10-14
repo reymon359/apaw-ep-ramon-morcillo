@@ -5,11 +5,13 @@ import es.upm.miw.apaw_ep_themes.daos.DirectorDao;
 import es.upm.miw.apaw_ep_themes.documents.Director;
 import es.upm.miw.apaw_ep_themes.documents.DirectorBuilder;
 import es.upm.miw.apaw_ep_themes.dtos.DirectorDto;
+import es.upm.miw.apaw_ep_themes.business_controllers.DirectorBusinessController;
 import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import reactor.test.StepVerifier;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -57,4 +59,15 @@ class DirectorBusinessControllerIT {
 
     }
 
+    @Test
+    void testDirectorPublisher(){
+        DirectorDto directorDto = new DirectorDto("name3", 23,true);
+        StepVerifier
+                .create(directorBusinessController.publisher())
+                .then(() -> directorBusinessController.create
+                        (directorDto))
+                .expectNext("New Director")
+                .thenCancel()
+                .verify();
+    }
 }
