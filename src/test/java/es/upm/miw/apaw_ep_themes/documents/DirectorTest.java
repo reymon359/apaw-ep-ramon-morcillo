@@ -26,6 +26,7 @@ public class DirectorTest {
         assertEquals(Integer.valueOf(34), director.getAge());
         assertEquals(true, director.getAlive());
     }
+
     @Test
     void testToString() {
         assertEquals("Director{id='null', name=name', age=25', alive=false'}", director.toString());

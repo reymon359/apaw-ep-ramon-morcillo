@@ -3,10 +3,6 @@ package es.upm.miw.apaw_ep_themes.documents;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
 @Document
 public class Director {
 
@@ -24,7 +20,6 @@ public class Director {
         this.age = age;
         this.alive = alive;
     }
-
 
     public String getId() {
         return id;
