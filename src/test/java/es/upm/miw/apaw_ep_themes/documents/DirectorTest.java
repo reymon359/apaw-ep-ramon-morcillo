@@ -13,7 +13,7 @@ public class DirectorTest {
 
     @BeforeEach
     void before() {
-        this.director = new Director("name", 25, false);
+        this.director = new DirectorBuilder().setName("name").setAge(25).setAlive(false).createDirector();
     }
 
     @Test
@@ -26,6 +26,7 @@ public class DirectorTest {
         assertEquals(Integer.valueOf(34), director.getAge());
         assertEquals(true, director.getAlive());
     }
+
     @Test
     void testToString() {
         assertEquals("Director{id='null', name=name', age=25', alive=false'}", director.toString());

@@ -2,15 +2,11 @@ package es.upm.miw.apaw_ep_themes.business_controllers;
 
 import es.upm.miw.apaw_ep_themes.daos.ProposalDao;
 import es.upm.miw.apaw_ep_themes.documents.Proposal;
-import es.upm.miw.apaw_ep_themes.dtos.ProposalDto;
 import es.upm.miw.apaw_ep_themes.dtos.ProposalPatchDto;
 import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class ProposalBusinessController {
