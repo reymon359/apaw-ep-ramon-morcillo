@@ -1,14 +1,26 @@
 package es.upm.miw.apaw_ep_themes.documents;
 
 public class DirectorBuilder {
+    private String name;
+    private Integer age;
+    private Boolean alive;
 
-    private Director director;
-
-    public DirectorBuilder(String name, Integer age, Boolean alive) {
-        this.director = new Director(name, age, alive);
+      public DirectorBuilder setName(String name) {
+        this.name = name;
+        return this;
     }
 
-    public Director build() {
-        return this.director;
+    public DirectorBuilder setAge(Integer age) {
+        this.age = age;
+        return this;
+    }
+
+    public DirectorBuilder setAlive(Boolean alive) {
+        this.alive = alive;
+        return this;
+    }
+
+    public Director createDirector() {
+        return new Director(name, age, alive);
     }
 }

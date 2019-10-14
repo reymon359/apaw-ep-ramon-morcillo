@@ -15,7 +15,7 @@ public class FilmTest {
     void before() {
         this.film = new Film(
                 "name", "genre",
-                new Director("name", 25, false),
+                new DirectorBuilder().setName("name").setAge(25).setAlive(false).createDirector(),
                 new Score(8, 50));
     }
 

@@ -3,6 +3,7 @@ package es.upm.miw.apaw_ep_themes.business_controllers;
 import es.upm.miw.apaw_ep_themes.TestConfig;
 import es.upm.miw.apaw_ep_themes.daos.DirectorDao;
 import es.upm.miw.apaw_ep_themes.documents.Director;
+import es.upm.miw.apaw_ep_themes.documents.DirectorBuilder;
 import es.upm.miw.apaw_ep_themes.dtos.DirectorDto;
 import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
@@ -25,7 +26,7 @@ class DirectorBusinessControllerIT {
 
     @BeforeEach
     void before() {
-        this.director = new Director("name", 25, false);
+        this.director = new DirectorBuilder().setName("name").setAge(25).setAlive(false).createDirector();
         this.directorDao.save(director);
     }
 
@@ -43,7 +44,7 @@ class DirectorBusinessControllerIT {
 
     @Test
     void testUpdateDirector() {
-        Director director2 = new Director("name2", 22, true);
+        Director director2 = new DirectorBuilder().setName("name2").setAge(22).setAlive(true).createDirector();
         this.directorDao.save(director2);
 
         DirectorDto directorDto = new DirectorDto(director);

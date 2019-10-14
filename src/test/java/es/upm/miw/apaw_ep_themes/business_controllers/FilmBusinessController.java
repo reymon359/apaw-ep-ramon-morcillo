@@ -2,10 +2,7 @@ package es.upm.miw.apaw_ep_themes.business_controllers;
 
 import es.upm.miw.apaw_ep_themes.TestConfig;
 import es.upm.miw.apaw_ep_themes.daos.FilmDao;
-import es.upm.miw.apaw_ep_themes.documents.Director;
-import es.upm.miw.apaw_ep_themes.documents.Film;
-import es.upm.miw.apaw_ep_themes.documents.Review;
-import es.upm.miw.apaw_ep_themes.documents.Score;
+import es.upm.miw.apaw_ep_themes.documents.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +27,7 @@ class FilmBusinessControllerIT {
     void before() {
         this.film = new Film(
                 "name", "genre",
-                new Director("name", 25, false),
+                new DirectorBuilder().setName("name").setAge(25).setAlive(false).createDirector(),
                 new Score(8, 50));
     }
 
