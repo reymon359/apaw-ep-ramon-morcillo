@@ -23,7 +23,7 @@ public class DirectorBusinessController {
     }
 
     public DirectorDto create(DirectorDto directorDto) {
-        Director director = new DirectorBuilder(directorDto.getName(), directorDto.getAge(), directorDto.getAlive()).build();
+        Director director = new Director(directorDto.getName(), directorDto.getAge(), directorDto.getAlive());
         this.directorDao.save(director);
         return new DirectorDto(director);
     }
@@ -39,3 +39,4 @@ public class DirectorBusinessController {
     }
 
 }
+
