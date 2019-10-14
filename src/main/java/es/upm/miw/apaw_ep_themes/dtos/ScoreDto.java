@@ -1,9 +1,6 @@
 package es.upm.miw.apaw_ep_themes.dtos;
 
-import es.upm.miw.apaw_ep_themes.documents.Review;
 import es.upm.miw.apaw_ep_themes.documents.Score;
-
-import java.util.List;
 
 public class ScoreDto {
 
